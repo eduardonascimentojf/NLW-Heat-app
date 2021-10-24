@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import {
+  useFonts,
+  NotoSans_400Regular,
+  NotoSans_700Bold,
+} from "@expo-google-fonts/noto-sans";
+import AppLoading from "expo-app-loading";
+import { Home } from "./src/screens/Home";
+import { AuthProvaider } from "./src/hooks/auth";
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    NotoSans_400Regular,
+    NotoSans_700Bold,
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvaider>
+      <StatusBar style="light" translucent backgroundColor="transparent" />
+      <Home />
+    </AuthProvaider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
